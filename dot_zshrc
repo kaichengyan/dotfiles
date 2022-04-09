@@ -10,10 +10,6 @@ zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
 
 [ ! -f ~/.aliases.sh ] || source ~/.aliases.sh
 
-[ ! -f ~/.aliases.google.sh ] || source ~/.aliases.google.sh
-
-[ ! -f ~/.zshrc.google.sh ] || source ~/.zshrc.google.sh
-
 (( $+commands[rbenv] )) && eval "$(rbenv init -)"
 (( $+commands[jenv] )) && eval "$(jenv init -)"
 (( $+commands[nodenv] )) && eval "$(nodenv init -)"
@@ -38,6 +34,14 @@ fi
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
 ### End of Zinit's installer chunk
 
 zinit ice depth=1; zinit light romkatv/powerlevel10k
@@ -52,8 +56,6 @@ zinit snippet OMZP::jenv
 zinit snippet OMZP::direnv
 zinit snippet OMZP::forklift
 zinit snippet OMZP::keychain
-
-[ ! -f ~/.zinit_snippets.google.zsh ] || source ~/.zinit_snippets.google.zsh
 
 [ ! -f ~/.p10k.zsh ] || source ~/.p10k.zsh
 

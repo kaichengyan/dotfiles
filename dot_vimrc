@@ -49,8 +49,6 @@ endif
 
 filetype off
 
-source ~/.vim/glug-plugins.vim
-
 """ vim-plug
 call plug#begin('~/.vim/plugged')
 
