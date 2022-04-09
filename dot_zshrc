@@ -1,0 +1,60 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
+
+[ ! -f ~/.aliases.sh ] || source ~/.aliases.sh
+
+[ ! -f ~/.aliases.google.sh ] || source ~/.aliases.google.sh
+
+[ ! -f ~/.zshrc.google.sh ] || source ~/.zshrc.google.sh
+
+(( $+commands[rbenv] )) && eval "$(rbenv init -)"
+(( $+commands[jenv] )) && eval "$(jenv init -)"
+(( $+commands[nodenv] )) && eval "$(nodenv init -)"
+(( $+commands[goenv] )) && eval "$(goenv init -)"
+(( $+commands[pyenv] )) && eval "$(pyenv init -)"
+(( $+commands[direnv] )) && eval "$(direnv hook zsh)"
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+
+[ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
+
+export GPG_TTY=$(tty)
+
+### Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+### End of Zinit's installer chunk
+
+zinit ice depth=1; zinit light romkatv/powerlevel10k
+zinit light zsh-users/zsh-autosuggestions
+zinit light zdharma-continuum/fast-syntax-highlighting
+zinit snippet OMZP::git
+zinit snippet OMZP::brew
+zinit snippet OMZP::fasd
+zinit snippet OMZP::pyenv
+zinit snippet OMZP::rbenv
+zinit snippet OMZP::jenv
+zinit snippet OMZP::direnv
+zinit snippet OMZP::forklift
+zinit snippet OMZP::keychain
+
+[ ! -f ~/.zinit_snippets.google.zsh ] || source ~/.zinit_snippets.google.zsh
+
+[ ! -f ~/.p10k.zsh ] || source ~/.p10k.zsh
+
+[ ! -f ~/.fzf.zsh ] || source ~/.fzf.zsh
