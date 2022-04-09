@@ -1,0 +1,42 @@
+[user]
+	name = Kyle Yan
+	email = kyleyankc@gmail.com
+	signingkey = FDBF08B8C094A41E
+[core]
+	excludesfile = ~/.gitignore
+	whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+	trustctime = false
+[gpg]
+	program = /usr/local/bin/gpg
+[commit]
+	gpgsign = true
+[alias]
+	adog = log --all --decorate --oneline --graph
+[help]
+	autocorrect = 1 
+
+# url shorthands
+
+[url "git@github.com:"]
+	insteadOf = "gh:"
+	pushInsteadOf = "github:"
+	pushInsteadOf = "git://github.com/"
+[url "git://github.com/"]
+	insteadOf = "github:"
+[url "git@gist.github.com:"]
+	insteadOf = "gst:"
+	pushInsteadOf = "gist:"
+	pushInsteadOf = "git://gist.github.com/"
+[url "git://gist.github.com/"]
+	insteadOf = "gist:"
+[init]
+	defaultBranch = main
+[pull]
+	ff = only
+[http]
+	cookiefile = /Users/kyleyan/.gitcookies
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
