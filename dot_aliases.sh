@@ -1,8 +1,4 @@
-{{- if eq .chezmoi.os "Darwin" }}
-alias ls='ls -G'
-{{- else }}
 alias ls='ls --color'
-{{- end }}
 alias cp='cp -iv'                           # Preferred 'cp' implementation
 alias mv='mv -iv'                           # Preferred 'mv' implementation
 alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementatio
