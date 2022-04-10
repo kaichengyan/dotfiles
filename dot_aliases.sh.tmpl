@@ -1,11 +1,8 @@
-case $(uname) in
-  Darwin)
-    alias ls='ls -G'
-  ;;
-  Linux)
-    alias ls='ls --color'
-  ;;
-esac
+{{- if eq .chezmoi.os "Darwin" }}
+alias ls='ls -G'
+{{- else }}
+alias ls='ls --color'
+{{- end }}
 alias cp='cp -iv'                           # Preferred 'cp' implementation
 alias mv='mv -iv'                           # Preferred 'mv' implementation
 alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementatio
@@ -37,13 +34,13 @@ ffs () { /usr/bin/find . -name "$@"'*' ; }  # ffs:      Find file whose name sta
 ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name ends with a given string
 
 # better zz from fasd
-function zz() {
+zz() {
   local dir
   dir="$(fasd -Rdl "$*" | fzf --query="$*" -1 -0 --no-sort +m)" && cd "${dir}" || return 1
 }
 
 # Usage: fv file pattern
-function fv() {
+fv() {
   local file
   file="$(fzf --exact --height 40% --reverse --query="$1"  --select-1 --exit-0)"
   [[ -n "$file" ]] && vim "$file"
